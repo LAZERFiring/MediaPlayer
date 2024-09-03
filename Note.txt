@@ -1,0 +1,25 @@
+------------------------------------------------------------------------------------first
+难点:
+	#如何编写一套程序，能够实现播放音乐/媒体，导入音乐/媒体功能的GUI程序？
+		答：在这里，我们使用Qt的QMediaPlayer QVideoWidget QAudioOutput 三个模块的功能。下面，我们将从最简单使用方法
+		来举例，更详细的功能见帮助文档：
+		1，打开Qt维护工具，安装该模块
+		2，打开MSVC，使用提前写好的Qt的CMAKE模板（详细见桌面CMAKE项目模板中的CMAKELIST.txt文件），使用MSVC编写Qt程序
+		3，在CMakeLists.txt中，加入所需模块,加入（更新）以下语法:
+			find_package(Qt6 COMPONENTS Widgets Multmedia MultmediaWidgets REQUIRED)
+			target_link_libraries(QtPro Qt6::Widgets Qt6::Multmedia Qt6::MultmediaWidgets)
+		   如果安装模块需要升级版本，则在构建CMAKE项目前，需要重新指定以下QtCMAKE驱动的环境目录
+			set(CMAKE_PREFIX_PATH "D:/Qt/6.7.1/msvc2019_64/lib/cmake")
+			执行构建生成，完成环境搭建！
+		4，为程序设计界面：
+			4.1，打开QtDesigner（MSVC）版本，开始设计ui
+			4.2，ui设计完成后，保存至创建的项目文件下（与CMakeList.txt同级），在CMakeList.txt加入以下语法：
+				qt_warp_ui(QtPro "MainWindow.ui") #根据ui文件生成对应的头文件
+			4.3，执行项目构建后，ui的头文件会生成在当前项目下的\out\build\x64-debug\QtPro_autogen\include里（一般情况下）
+			   （如果不在上述所说目录的话，就自己找一下，然后自己在CMakeList.txt里包含一下）
+			4.4，打开所生成的头文件，查看底部的ui命名空间，看类名是什么。根据这个类名，在项目可执行文件中任意想要覆盖的控件
+			类中（一般是QWidgets）重用所生成的ui类（如何重用这里不进行赘述，见代码）
+		5，撰写代码，活用模块，帮助文档中有详细说明,结合人工智能来进行功能编写
+结论:
+	1，若想要QMediaPlayer中duration变量有值，必须连接QMediaPlayer::durationChanged信号和所对应的槽函数
+	

@@ -14,3 +14,5 @@
 
 1.  本程序暂时没有实现程序中添加视频与音乐的功能，用户可以将视频活音乐文件放到源目录下的Assets/music下，在运行程序即可
 
+#下载地址
+https://gitee.com/lazerfiring/media-player-
